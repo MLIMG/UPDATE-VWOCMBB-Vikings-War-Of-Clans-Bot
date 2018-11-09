@@ -1,0 +1,1 @@
+compare.exe: ImagesTooDissimilar `C:\Users\Anonymous\Nox_share\Image\Guzele_example_bot_127.0.0.1.62031-screen.png' @ error/compare.c/CompareImagesCommand/1168.
