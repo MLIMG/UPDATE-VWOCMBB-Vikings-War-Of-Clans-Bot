@@ -1008,21 +1008,27 @@ function debug_log_start{
 }
 
 function debug_log_stop($starttime,$name,$comment){
+  $tody_logdate = (Get-Date -Format d.M.yyyy)
+  try {
+    New-Item -ItemType directory -Path C:\vwocmbb_ps\data\logs\$tody_logdate\ -errorAction SilentlyContinue
+  } catch {
+
+  }
   $Elapsed = ((Get-Date) - $starttime).ToString()
   $filename = $global:logname
   $datname = ($global:adbname -replace ":",".").Trim()
   $bot_name = $global:deb_bot_name
   $recordet_time_at = (Get-Date).tostring()
-  $path = "\vwocmbb_ps\data\logs\$filename.txt"
+  $path = "\vwocmbb_ps\data\logs\$tody_logdate\$filename.txt"
 
   if($name -eq "Botsession Duration"){
-    $path = "\vwocmbb_ps\data\logs\$bot_name.session_duration.$datname.txt"
+    $path = "\vwocmbb_ps\data\logs\$tody_logdate\$bot_name.session_duration.$datname.txt"
   }
   if($name -eq "Connection Lost, Renew IP"){
-    $path = "\vwocmbb_ps\data\logs\$bot_name.session_duration.$datname.txt"
+    $path = "\vwocmbb_ps\data\logs\$tody_logdate\$bot_name.session_duration.$datname.txt"
   }
   if($name -eq "Cannot load Account"){
-    $path = "\vwocmbb_ps\data\logs\$bot_name.session_duration.$datname.txt"
+    $path = "\vwocmbb_ps\data\logs\$tody_logdate\$bot_name.session_duration.$datname.txt"
   }
   $endline = "-----------------------------------------------------------------------------"
 
@@ -1050,11 +1056,17 @@ function debug_log_stop($starttime,$name,$comment){
 }
 
 function ocr_log_stop($starttime,$name,$comment){
+  $tody_logdate = (Get-Date -Format d.M.yyyy)
+  try {
+    New-Item -ItemType directory -Path C:\vwocmbb_ps\data\logs\$tody_logdate\ -errorAction SilentlyContinue
+  } catch {
+
+  }
   $Elapsed = ((Get-Date) - $starttime).ToString()
   $filename = $global:logname
   $datname = ($global:adbname -replace ":",".").Trim()
   $recordet_time_at = (Get-Date).tostring()
-  $path = "\vwocmbb_ps\data\logs\ocr_log.$datname.txt"
+  $path = "\vwocmbb_ps\data\logs\$tody_logdate\ocr_log.$datname.txt"
   $endline = "-----------------------------------------------------------------------------"
   If (Test-Path $path){
     @("Name    : $name", "Comment : $comment","At      : $recordet_time_at","Duration: $Elapsed",$endline) + (Get-Content $path) | Set-Content $path
@@ -2144,6 +2156,50 @@ function sendsilver([int]$amount){
   }
 }
 
+#rss_to_sh_ext
+# timeout,loops
+function rss_to_sh_ext([array]$params){
+  [int]$timeout = $params[0]
+  [int]$loops = $params[1]
+  $global:whereami = "rss_to_sh"
+  bot_notify "Send RSS to SH"
+  click-screen 818 1818
+  Start-Sleep -m 350
+  click-screen 465 990
+  Start-Sleep-Prog 13 "Wait for SH"
+  click-screen 470 45
+  Start-Sleep -m 350
+  click-screen 860 470
+  scrollup
+  scrollup
+  $loop_count = 0
+  while ($loop_count -le $loops){
+    [int]$i=0
+    foreach ($param in $params){
+      if($param -eq "food"){
+        sendfoodSH $params[$i+1]
+      }
+      if($param -eq "wood"){
+        sendwoodSH $params[$i+1]
+      }
+      if($param -eq "iron"){
+        sendironSH $params[$i+1]
+      }
+      if($param -eq "stone"){
+        sendstoneSH $params[$i+1]
+      }
+      if($param -eq "silver"){
+        sendsilverSH $params[$i+1]
+      }
+      $i++
+    }
+    start-sleep -s $timeout
+    $loop_count++
+  }
+  click-screen 1063 90
+  click-screen 90 1830
+}
+
 #rss_to_sh
 function rss_to_sh([array]$params){
   $global:whereami = "rss_to_sh"
@@ -2839,7 +2895,8 @@ function doOCR($cap,$mode,$obj,$func_name){
     $xml = new-object System.Xml.XmlDocument
     $path = "C:\vwocmbb_ps\data\color_table\$obj.xml"
     $xml = [xml](Get-Content $path)
-    foreach($colornode in $xml.Pixel.Color){
+    $yml_array = $xml.Pixel.Color
+    foreach($colornode in $yml_array){
       $ret_color = run-prog-pixel ($resize_path.Trim()) $colornode.px $colornode.py
       if($ret_color -eq ($colornode.srgb+",1")){
         cls
@@ -2869,7 +2926,8 @@ function doOCR($cap,$mode,$obj,$func_name){
     $xml = [xml](Get-Content $path)
     [int]$xml_count = ($xml.Pixel.Color).count
     $io_counter = 0
-    foreach($colornode in $xml.Pixel.Color){
+    $yml_array = $xml.Pixel.Color
+    foreach($colornode in $yml_array){
       $ret_color = run-prog-pixel ($resize_path.Trim()) $colornode.px $colornode.py
       if($ret_color -eq ($colornode.srgb+",1")){
         cls
@@ -3011,9 +3069,9 @@ function run-prog-pixel($imput_img,$pixel_x,$pixel_y){
     '-crop "'+$condits+'" -gravity center -depth 8 txt:-'
   )
   $ocr_path = (Get-Item -Path ".\").FullName + "\data\AI\ICompare\convert.exe"
-  $pixel_search_result = Start-Process -FilePath $ocr_path -ArgumentList $pixel_args -NoNewWindow -PassThru -Wait -RedirectStandardOutput ((Get-Item -Path ".\").FullName + "\data\AI\Images\src\$imagename-pixel.txt")
-  $content = (Get-Content ((Get-Item -Path ".\").FullName + "\data\AI\Images\src\$imagename-pixel.txt") -raw)
-  $matcharray = [regex]::Matches($content, '\(([^/)]+)\)') |ForEach-Object { $_.Groups[1].Value }
+  Start-Process -FilePath $ocr_path -ArgumentList $pixel_args -NoNewWindow -Wait -RedirectStandardOutput ((Get-Item -Path ".\").FullName + "\data\AI\Images\src\$imagename-pixel.txt")
+  #$content = (Get-Content ((Get-Item -Path ".\").FullName + "\data\AI\Images\src\$imagename-pixel.txt") -raw)
+  $matcharray = [regex]::Matches((Get-Content ((Get-Item -Path ".\").FullName + "\data\AI\Images\src\$imagename-pixel.txt") -raw), '\(([^/)]+)\)') |ForEach-Object { $_.Groups[1].Value }
   $srgb_color = $matcharray[1]
   return $srgb_color
 }

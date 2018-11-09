@@ -1,0 +1,11 @@
+<Meta>
+	<Version Value="1.4.2.ps.alpha"/>
+	<Path Value="https://easy-develope.ch/ps_bot_update/update_1.4.2.ps.alpha.zip"/>
+	<Changelog>
+		<Info Value="----------------------------"/>
+		<Info Value="New:"/>
+		<Info Value="add new function rss_to_sh_ext"/>
+		<Info Value="check the bot codex for more info"/>
+		<Info Value="----------------------------"/>
+	</Changelog>
+</Meta>
