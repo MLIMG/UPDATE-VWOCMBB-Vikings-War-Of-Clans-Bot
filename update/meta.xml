@@ -1,12 +1,14 @@
 <Meta>
-	<Version Value="1.4.4.ps.alpha"/>
-	<Path Value="https://easy-develope.ch/ps_bot_update/update_1.4.4.ps.alpha.zip"/>
+	<Version Value="1.4.5.ps.alpha"/>
+	<Path Value="https://easy-develope.ch/ps_bot_update/update_1.4.5.ps.alpha.zip"/>
 	<Changelog>
 		<Info Value="----------------------------"/>
-		<Info Value="Bugfix:"/>
-		<Info Value="Fixed bug device not found for long tasks"/>
 		<Info Value="New:"/>
-		<Info Value="auto apply VIP Points after bonus collector"/>
+		<Info Value="Important update Nox!"/>
+		<Info Value="Download:https://easy-develope.ch/ps_bot_update/nox/nox_setup_v6.2.5.2_full_intl.zip"/>
+		<Info Value="The latest Nox Version is more powerfull and stable"/>
+		<Info Value="----------------------------"/>
+		<Info Value="Show error notice for 10s (wrong bot configuration)"/>
 		<Info Value="----------------------------"/>
 	</Changelog>
 </Meta>
