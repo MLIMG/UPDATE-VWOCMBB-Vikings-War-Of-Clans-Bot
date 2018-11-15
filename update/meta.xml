@@ -1,17 +1,11 @@
 <Meta>
-	<Version Value="1.4.8.ps.alpha"/>
-	<Path Value="https://easy-develope.ch/ps_bot_update/update_1.4.8.ps.alpha.zip"/>
+	<Version Value="1.5.1.ps.alpha"/>
+	<Path Value="https://easy-develope.ch/ps_bot_update/update_1.5.1.ps.alpha.zip"/>
 	<Changelog>
 		<Info Value="----------------------------"/>
 		<Info Value="Bugfix:"/>
-		<Info Value="Emulator wont reboot on device not found message"/>
-		<Info Value="Emulator wont reboot every hour"/>
-		<Info Value="traintroop wont train warrior"/>
-		<Info Value="MB app wont close in background after vikings launched"/>
-		<Info Value="Updater close after press no. now loading main menu"/>
-		<Info Value="----------------------------"/>
-		<Info Value="New:"/>
-		<Info Value="Added api version check in updater"/>
+		<Info Value="traintroop train to much warriors!"/>
+		<Info Value="memu wont reboot"/>
 		<Info Value="----------------------------"/>
 	</Changelog>
 </Meta>
