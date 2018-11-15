@@ -1600,6 +1600,7 @@ function buildskill{
   }
 }
 
+#b250
 #traintroop
 function traintroop{
   $global:whereami = "traintroop"
