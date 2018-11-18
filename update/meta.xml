@@ -1,12 +1,10 @@
 <Meta>
-	<Version Value="1.5.2.ps.alpha"/>
-	<Path Value="https://easy-develope.ch/ps_bot_update/update_1.5.2.ps.alpha.zip"/>
+	<Version Value="1.5.3.ps.alpha"/>
+	<Path Value="https://easy-develope.ch/ps_bot_update/update_1.5.3.ps.alpha.zip"/>
 	<Changelog>
 		<Info Value="----------------------------"/>
-		<Info Value="New:"/>
-		<Info Value="Tutorial Bot"/>
-		<Info Value="Add Multibox Account,Play Tutorial, Change Kingdom, Join clan"/>
-		<Info Value="Check the bot codex for more info!"/>
+		<Info Value="Bugfix:"/>
+		<Info Value="Tutorial Bot wont join clan fixed"/>
 		<Info Value="----------------------------"/>
 	</Changelog>
 </Meta>
