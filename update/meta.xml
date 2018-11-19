@@ -1,11 +1,11 @@
 <Meta>
-	<Version Value="1.5.4.ps.alpha"/>
-	<Path Value="https://easy-develope.ch/ps_bot_update/update_1.5.4.ps.alpha.zip"/>
+	<Version Value="1.5.5.ps.alpha"/>
+	<Path Value="https://easy-develope.ch/ps_bot_update/update_1.5.5.ps.alpha.zip"/>
 	<Changelog>
 		<Info Value="----------------------------"/>
 		<Info Value="Bugfix:"/>
-		<Info Value="Fixed Drony bugs and added auto updater"/>
-		<Info Value="Fixed similar bugs in tutorial bot"/>
+		<Info Value="Fixed Drony updater bug"/>
+		<Info Value=""/>
 		<Info Value="----------------------------"/>
 	</Changelog>
 </Meta>
