@@ -1,11 +1,16 @@
 <Meta>
-	<Version Value="1.5.5.ps.alpha"/>
-	<Path Value="https://easy-develope.ch/ps_bot_update/update_1.5.5.ps.alpha.zip"/>
+	<Version Value="1.5.6.ps.alpha"/>
+	<Path Value="https://easy-develope.ch/ps_bot_update/update_1.5.6.ps.alpha.zip"/>
 	<Changelog>
 		<Info Value="----------------------------"/>
+		<Info Value="Important:"/>
+		<Info Value="Windows 7 and 8 user"/>
+		<Info Value="Need to download this bugfix first!"/>
+		<Info Value="Download:https://easy-develope.ch/ps_bot_update/old_releases/ps_update.zip"/>
+		<Info Value="----------------------------"/>
 		<Info Value="Bugfix:"/>
-		<Info Value="Fixed Drony updater bug"/>
-		<Info Value=""/>
+		<Info Value="Fixed Updater bugs."/>
+		<Info Value="Fixed version check issues"/>
 		<Info Value="----------------------------"/>
 	</Changelog>
 </Meta>
