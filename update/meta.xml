@@ -1,6 +1,6 @@
 <Meta>
-	<Version Value="1.5.6.ps.alpha"/>
-	<Path Value="https://easy-develope.ch/ps_bot_update/update_1.5.6.ps.alpha.zip"/>
+	<Version Value="1.5.7.ps.alpha"/>
+	<Path Value="https://easy-develope.ch/ps_bot_update/update_1.5.7.ps.alpha.zip"/>
 	<Changelog>
 		<Info Value="----------------------------"/>
 		<Info Value="Important:"/>
@@ -9,8 +9,7 @@
 		<Info Value="Download:https://easy-develope.ch/ps_bot_update/old_releases/ps_update.zip"/>
 		<Info Value="----------------------------"/>
 		<Info Value="Bugfix:"/>
-		<Info Value="Fixed Updater bugs."/>
-		<Info Value="Fixed version check issues"/>
+		<Info Value="Bot wont collect daily goals by KD127"/>
 		<Info Value="----------------------------"/>
 	</Changelog>
 </Meta>
