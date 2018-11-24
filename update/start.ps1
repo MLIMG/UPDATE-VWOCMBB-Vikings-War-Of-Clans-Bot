@@ -6,6 +6,7 @@ Import-Module .\modules\VWOCMBB-updater\VWOCMBB-updater -WarningAction SilentlyC
 foreach ($extension in (Get-ChildItem (".\extension\") -Name -attributes D)){
     Import-Module .\extension\$extension\$extension -WarningAction SilentlyContinue
 }
+$debugvalue = 0
 $global:autoreboot = "on"
 $global:tutomode = ""
 $global:adbpath = ""
@@ -1188,7 +1189,9 @@ read bot xml file
 function read-botxml($botfile){
   if($global:emumode -eq "Nox"){
     $nox_vers = (get-item "$global:Nox\Nox.exe").VersionInfo.FileVersion
-    if($nox_vers -ne "V.6.2.5.2"){
+    $nox_vers = $nox_vers -replace "V.",""
+    $noxvers = $nox_vers -replace "\.", ""
+    if($noxvers -lt "6252"){
       cls
       Write-host ""
       Write-host "Please change Nox to version V.6.2.5.2"
@@ -2337,8 +2340,11 @@ click-screen  1063 90
 function sendfood([int]$amount){
   for ($i=1;$i -le $amount;$i++){
     click-screen  618 355
+    Start-Sleep -m 650
     click-screen  901 1738
+    Start-Sleep -m 650
     click-screen  590 1220
+    Start-Sleep -m 650
     bot_notify "$i of $amount"
   }
 }
@@ -2347,8 +2353,11 @@ function sendfood([int]$amount){
 function sendwood([int]$amount){
   for ($i=1;$i -le $amount;$i++){
     click-screen  618 585
+    Start-Sleep -m 650
     click-screen  901 1738
+    Start-Sleep -m 650
     click-screen  590 1220
+    Start-Sleep -m 650
     bot_notify "$i of $amount"
   }
 }
@@ -2357,8 +2366,11 @@ function sendwood([int]$amount){
 function sendiron([int]$amount){
   for ($i=1;$i -le $amount;$i++){
     click-screen  618 815
+    Start-Sleep -m 650
     click-screen  901 1738
+    Start-Sleep -m 650
     click-screen  590 1220
+    Start-Sleep -m 650
     bot_notify "$i of $amount"
   }
 }
@@ -2367,8 +2379,11 @@ function sendiron([int]$amount){
 function sendstone([int]$amount){
   for ($i=1;$i -le $amount;$i++){
     click-screen  618 1045
+    Start-Sleep -m 650
     click-screen  901 1738
+    Start-Sleep -m 650
     click-screen  590 1220
+    Start-Sleep -m 650
     bot_notify "$i of $amount"
   }
 }
@@ -2377,8 +2392,12 @@ function sendstone([int]$amount){
 function sendsilver([int]$amount){
   for ($i=1;$i -le $amount;$i++){
     click-screen  618 1275
+    Start-Sleep -m 650
     click-screen  901 1738
+    Start-Sleep -m 650
+    Start-Sleep -m 650
     click-screen  590 1220
+    Start-Sleep -m 650
     bot_notify "$i of $amount"
   }
 }
@@ -2503,8 +2522,11 @@ function rss_to_sh([array]$params){
 function sendfoodSH([int]$amount){
   for ($i=1;$i -le $amount;$i++){
     click-screen 618 447
+    Start-Sleep -m 650
     click-screen 901 1738
+    Start-Sleep -m 650
     click-screen 590 1220
+    Start-Sleep -m 650
     bot_notify "$i of $amount"
   }
 }
@@ -2512,8 +2534,11 @@ function sendfoodSH([int]$amount){
 function sendwoodSH([int]$amount){
   for ($i=1;$i -le $amount;$i++){
     click-screen 618 671
+    Start-Sleep -m 650
     click-screen 901 1738
+    Start-Sleep -m 650
     click-screen 590 1220
+    Start-Sleep -m 650
     bot_notify "$i of $amount"
   }
 }
@@ -2521,8 +2546,11 @@ function sendwoodSH([int]$amount){
 function sendironSH([int]$amount){
   for ($i=1;$i -le $amount;$i++){
     click-screen 618 900
+    Start-Sleep -m 650
     click-screen 901 1738
+    Start-Sleep -m 650
     click-screen 590 1220
+    Start-Sleep -m 650
     bot_notify "$i of $amount"
   }
 }
@@ -2530,8 +2558,11 @@ function sendironSH([int]$amount){
 function sendstoneSH([int]$amount){
   for ($i=1;$i -le $amount;$i++){
     click-screen 618 1130
+    Start-Sleep -m 650
     click-screen 901 1738
+    Start-Sleep -m 650
     click-screen 590 1220
+    Start-Sleep -m 650
     bot_notify "$i of $amount"
   }
 }
@@ -2539,8 +2570,11 @@ function sendstoneSH([int]$amount){
 function sendsilverSH([int]$amount){
   for ($i=1;$i -le $amount;$i++){
     click-screen 618 1350
+    Start-Sleep -m 650
     click-screen 901 1738
+    Start-Sleep -m 650
     click-screen 590 1220
+    Start-Sleep -m 650
     bot_notify "$i of $amount"
   }
 }
@@ -2697,7 +2731,7 @@ function task-loop([int]$params){
   bot_notify "Task-Loop"
   for ($i=1;$i -le $params;$i++){
     click-screen 900 630
-    start-sleep -m 450
+    start-sleep -m 650
     click-screen 900 630
     bot_notify "$i of $params"
   }
@@ -3210,7 +3244,8 @@ function doOCR($cap,$mode,$obj,$func_name){
     $yml_array = $xml.Pixel.Color
     foreach($colornode in $yml_array){
       $ret_color = run-prog-pixel ($resize_path.Trim()) $colornode.px $colornode.py
-      if($ret_color -eq ($colornode.srgb+",1")){
+      $boolean = if_color_in_range $ret_color $colornode.srgb
+      if($boolean -eq $true){
         cls
         bot_notify "PixelMode"
         Write-host "Equal:"
@@ -3241,7 +3276,8 @@ function doOCR($cap,$mode,$obj,$func_name){
     $yml_array = $xml.Pixel.Color
     foreach($colornode in $yml_array){
       $ret_color = run-prog-pixel ($resize_path.Trim()) $colornode.px $colornode.py
-      if($ret_color -eq ($colornode.srgb+",1")){
+      $boolean = if_color_in_range $ret_color $colornode.srgb
+      if($boolean -eq $true){
         cls
         bot_notify "PixelMode"
         Write-host "Equal:"
@@ -3263,6 +3299,51 @@ function doOCR($cap,$mode,$obj,$func_name){
       $the_return = 0
     }
     return $the_return
+  }
+}
+
+function if_color_in_range($retcolor,$colornode){
+  $retcolor = $retcolor.split(',')
+  $colornode = $colornode.split(',')
+  $parser = 0
+  $colorcount = 0
+  foreach($color in $retcolor){
+    [int]$color = $color
+    [int]$node = $colornode[$colorcount]
+    $node_min = $node-10
+    $node_max = $node+10
+    $compare = $color -In $node_min .. $node_max
+    if($compare -eq $true){
+      if($colorcount -eq 0){
+        Write-host "R: $color is in range of: $node_min and $node_max"
+      }
+      if($colorcount -eq 1){
+        Write-host "G: $color is in range of: $node_min and $node_max"
+      }
+      if($colorcount -eq 2){
+        Write-host "B: $color is in range of: $node_min and $node_max"
+      }
+      $parser++
+    } else {
+      if($colorcount -eq 0){
+        Write-host "R: $color is not in range of: $node_min and $node_max"
+      }
+      if($colorcount -eq 1){
+        Write-host "G: $color is not in range of: $node_min and $node_max"
+      }
+      if($colorcount -eq 2){
+        Write-host "B: $color is not in range of: $node_min and $node_max"
+      }
+    }
+    $colorcount++
+    if($colorcount -ge 3){
+      break
+    }
+  }
+  if($parser -eq 3){
+    return $true
+  } else {
+    return $false
   }
 }
 
@@ -3628,7 +3709,15 @@ function check-osvers{
         $botarr = @($args[1],$args[2],$args[3],$args[4])
         loadxmlsettings "quickbot" $botarr
       } else {
+        if($debugvalue -eq 0){
         check-osvers
+        } else {
+          try{
+            check-osvers
+          } catch {
+            throw
+          }
+        }
       }
     }
-  }  
+  }
